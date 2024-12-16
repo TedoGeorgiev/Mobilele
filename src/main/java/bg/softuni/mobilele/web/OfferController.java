@@ -4,13 +4,16 @@ package bg.softuni.mobilele.web;
 import bg.softuni.mobilele.model.AddOfferDTO;
 import bg.softuni.mobilele.model.enums.EngineTypeEnum;
 import bg.softuni.mobilele.service.OfferService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/offers")
@@ -35,14 +38,22 @@ public class OfferController {
     }
 
 
-    // This can be missed @ModelAttribute("addOfferDTO")
+    // This can be missed @ModelAttribute("addOfferDTO").
+    // Is used only when there is another object, which should not be mapped to model
     @PostMapping("/add")
-    public String createOffer(@ModelAttribute("addOfferDTO") AddOfferDTO addOfferDTO) {
+    public String createOffer(@Valid @ModelAttribute("addOfferDTO") AddOfferDTO addOfferDTO,
+                              BindingResult bindingResult, RedirectAttributes rAtt) {
 
-        offerService.createOffer(addOfferDTO);
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("addOfferDTO", addOfferDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO", bindingResult);
+            return "redirect:/offers/add";
+        }
 
-        //TODO
-        return "offer-add";
+        long newOfferId = offerService.createOffer(addOfferDTO);
+
+        return "redirect:/offers/" + newOfferId;
+
     }
 
 }
