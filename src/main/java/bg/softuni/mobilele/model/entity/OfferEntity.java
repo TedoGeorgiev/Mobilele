@@ -16,6 +16,9 @@ public class OfferEntity {
     private String description;
 
     @Column
+    private Integer mileage;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private EngineTypeEnum engine;
 
@@ -37,6 +40,15 @@ public class OfferEntity {
     //Design Patter Builder
     public OfferEntity setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
+    public OfferEntity setMileage(Integer mileage) {
+        this.mileage = mileage;
         return this;
     }
 

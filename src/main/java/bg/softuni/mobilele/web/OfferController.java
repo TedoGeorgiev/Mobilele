@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/offers")
 public class OfferController {
 
     private final OfferService offerService;
@@ -21,7 +23,7 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @GetMapping("/offers/add")
+    @GetMapping("/add")
     public String newOffer(Model model) {
 
         if (!model.containsAttribute("addOfferDTO")) {
@@ -34,7 +36,7 @@ public class OfferController {
 
 
     // This can be missed @ModelAttribute("addOfferDTO")
-    @PostMapping("/offers/add")
+    @PostMapping("/add")
     public String createOffer(@ModelAttribute("addOfferDTO") AddOfferDTO addOfferDTO) {
 
         offerService.createOffer(addOfferDTO);
