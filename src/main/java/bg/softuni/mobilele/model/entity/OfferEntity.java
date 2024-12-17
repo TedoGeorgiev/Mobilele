@@ -6,11 +6,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "offers")
-public class OfferEntity {
+public class OfferEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
     @Column
     private String description;
@@ -22,16 +19,6 @@ public class OfferEntity {
     @Enumerated(EnumType.STRING)
     private EngineTypeEnum engine;
 
-
-    public long getId() {
-        return id;
-    }
-
-    //Design Patter Builder
-    public OfferEntity setId(long id) {
-        this.id = id;
-        return this;
-    }
 
     public String getDescription() {
         return description;

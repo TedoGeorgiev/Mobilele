@@ -1,9 +1,10 @@
-package bg.softuni.mobilele.service;
+package bg.softuni.mobilele.service.impl;
 
 import bg.softuni.mobilele.model.AddOfferDTO;
 import bg.softuni.mobilele.model.OfferDetailsDto;
 import bg.softuni.mobilele.model.entity.OfferEntity;
 import bg.softuni.mobilele.repository.OfferRepository;
+import bg.softuni.mobilele.service.OfferService;
 import org.springframework.stereotype.Service;
 
 @Service
